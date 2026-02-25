@@ -1,2 +1,9 @@
 config.codekit
 *.sass-cache*
+
+# Arduino build artifacts
+esp32-epaper/build/
+*.elf
+*.bin
+*.hex
+*.map

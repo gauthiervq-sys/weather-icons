@@ -196,7 +196,7 @@ void setup() {
   display.init(115200, true, 2, false);
   display.setRotation(0);
   display.setTextWrap(false);
-  display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+  display.setTextColor(GxEPD_BLACK);
 
   // WiFi
   connectWiFi();
@@ -331,7 +331,7 @@ void showMessage(const char* msg) {
   display.setFullWindow();
   display.firstPage();
   do {
-    display.fillScreen(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+    display.fillScreen(GxEPD_WHITE);
     display.setFont(&FreeSans12pt7b);
     display.setCursor(20, 40);
     display.print(msg);
@@ -354,17 +354,17 @@ void renderCalendar() {
   display.setFullWindow();
   display.firstPage();
   do {
-    display.fillScreen(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+    display.fillScreen(GxEPD_WHITE);
 
     // Header bar
-    display.fillRect(0, 0, SCREEN_W, 36, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
-    display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+    display.fillRect(0, 0, SCREEN_W, 36, GxEPD_BLACK);
+    display.setTextColor(GxEPD_WHITE);
     display.setFont(&FreeSansBold12pt7b);
     display.setCursor(10, 27);
     display.print("CALENDAR  ");
     display.setFont(&FreeSans9pt7b);
     display.print(weekStr);
-    display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+    display.setTextColor(GxEPD_BLACK);
 
     int y = 52;
 
@@ -372,12 +372,12 @@ void renderCalendar() {
       if (lineTag(i, "[DAY]")) {
         // Day header
         String label = field(i, 2);
-        display.fillRect(0, y - 2, SCREEN_W, 24, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
-        display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+        display.fillRect(0, y - 2, SCREEN_W, 24, GxEPD_BLACK);
+        display.setTextColor(GxEPD_WHITE);
         display.setFont(&FreeSansBold12pt7b);
         display.setCursor(10, y + 16);
         display.print(label);
-        display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+        display.setTextColor(GxEPD_BLACK);
         y += 30;
       }
       else if (lineTag(i, "[ALLDAY]")) {
@@ -435,15 +435,15 @@ void renderWeather1() {
   display.setFullWindow();
   display.firstPage();
   do {
-    display.fillScreen(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+    display.fillScreen(GxEPD_WHITE);
 
     // Header
-    display.fillRect(0, 0, SCREEN_W, 36, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
-    display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+    display.fillRect(0, 0, SCREEN_W, 36, GxEPD_BLACK);
+    display.setTextColor(GxEPD_WHITE);
     display.setFont(&FreeSansBold12pt7b);
     display.setCursor(10, 27);
     display.print("WEATHER NOW");
-    display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+    display.setTextColor(GxEPD_BLACK);
 
     int y = 50;
 
@@ -455,7 +455,7 @@ void renderWeather1() {
         String tempMax = field(i, 4);
         int wmo        = field(i, 5).toInt();
 
-        display.drawBitmap(10, y, wmoIcon(wmo), 32, 32, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+        display.drawBitmap(10, y, wmoIcon(wmo), 32, 32, GxEPD_BLACK);
         display.setFont(&FreeSansBold18pt7b);
         display.setCursor(50, y + 26);
         display.print(dayLbl);
@@ -479,7 +479,7 @@ void renderWeather1() {
         String precip  = field(i, 9);
 
         // Large temperature
-        display.drawBitmap(10, y, wmoIcon(wmo), 32, 32, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+        display.drawBitmap(10, y, wmoIcon(wmo), 32, 32, GxEPD_BLACK);
         display.setFont(&FreeSansBold24pt7b);
         display.setCursor(50, y + 32);
         display.print(temp);
@@ -527,7 +527,7 @@ void renderWeather1() {
         if (col == 0 && hIdx > 0) y += 52;
         int x = 10 + col * 130;
 
-        display.drawBitmap(x, y, wmoIcon(hWmo), 32, 32, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+        display.drawBitmap(x, y, wmoIcon(hWmo), 32, 32, GxEPD_BLACK);
         display.setFont(&FreeSans9pt7b);
         display.setCursor(x + 34, y + 12);
         display.print(hh);
@@ -563,15 +563,15 @@ void renderWeather7() {
   display.setFullWindow();
   display.firstPage();
   do {
-    display.fillScreen(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+    display.fillScreen(GxEPD_WHITE);
 
     // Header
-    display.fillRect(0, 0, SCREEN_W, 36, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
-    display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+    display.fillRect(0, 0, SCREEN_W, 36, GxEPD_BLACK);
+    display.setTextColor(GxEPD_WHITE);
     display.setFont(&FreeSansBold12pt7b);
     display.setCursor(10, 27);
     display.print("7-DAY FORECAST");
-    display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+    display.setTextColor(GxEPD_BLACK);
 
     int y = 50;
     int rowH = 58;
@@ -590,17 +590,17 @@ void renderWeather7() {
           if (lineTag(j, "[W7]")) rowIdx++;
         }
         if (rowIdx % 2 == 1) {
-          display.fillRect(0, y - 4, SCREEN_W, rowH, GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
-          display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE);
+          display.fillRect(0, y - 4, SCREEN_W, rowH, GxEPD_BLACK);
+          display.setTextColor(GxEPD_WHITE);
         } else {
-          display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+          display.setTextColor(GxEPD_BLACK);
         }
 
         // Icon
         display.drawBitmap(10, y, wmoIcon(wmo), 32, 32,
           (rowIdx % 2 == 1)
-            ? GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::WHITE
-            : GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+            ? GxEPD_WHITE
+            : GxEPD_BLACK);
 
         // Day label
         display.setFont(&FreeSansBold18pt7b);
@@ -622,7 +622,7 @@ void renderWeather7() {
         display.print(" mm");
 
         // Reset text color
-        display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+        display.setTextColor(GxEPD_BLACK);
 
         y += rowH;
         if (y > SCREEN_H - 30) break;
@@ -631,7 +631,7 @@ void renderWeather7() {
 
     // Footer
     display.setFont(&FreeSans9pt7b);
-    display.setTextColor(GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT>::BLACK);
+    display.setTextColor(GxEPD_BLACK);
     display.setCursor(10, SCREEN_H - 6);
     display.print("Buttons: [cal2] [cal7] [weather1] [weather7]");
 

@@ -206,11 +206,27 @@ void setup() {
 }
 
 void loop() {
-  // Simple polling with debounce
-  if (digitalRead(BTN_CAL2) == LOW)     { delay(200); fetchAndRender("cal2");     }
-  if (digitalRead(BTN_CAL7) == LOW)     { delay(200); fetchAndRender("cal7");     }
-  if (digitalRead(BTN_WEATHER1) == LOW) { delay(200); fetchAndRender("weather1"); }
-  if (digitalRead(BTN_WEATHER7) == LOW) { delay(200); fetchAndRender("weather7"); }
+  // Simple polling with debounce + wait-for-release
+  if (digitalRead(BTN_CAL2) == LOW) {
+    delay(200);
+    fetchAndRender("cal2");
+    while (digitalRead(BTN_CAL2) == LOW) delay(50);
+  }
+  else if (digitalRead(BTN_CAL7) == LOW) {
+    delay(200);
+    fetchAndRender("cal7");
+    while (digitalRead(BTN_CAL7) == LOW) delay(50);
+  }
+  else if (digitalRead(BTN_WEATHER1) == LOW) {
+    delay(200);
+    fetchAndRender("weather1");
+    while (digitalRead(BTN_WEATHER1) == LOW) delay(50);
+  }
+  else if (digitalRead(BTN_WEATHER7) == LOW) {
+    delay(200);
+    fetchAndRender("weather7");
+    while (digitalRead(BTN_WEATHER7) == LOW) delay(50);
+  }
   delay(100);
 }
 
@@ -242,7 +258,7 @@ String httpGet(const char* action) {
     if (WiFi.status() != WL_CONNECTED) return "";
   }
 
-  String url = String(scriptUrl) + "?action=" + action;
+  String url = String(scriptUrl) + "?action=" + action + "&_t=" + String(millis());
   HTTPClient http;
   http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
   http.setTimeout(15000);
@@ -250,7 +266,7 @@ String httpGet(const char* action) {
 
   int code = http.GET();
   String body = "";
-  if (code == 200) {
+  if (code >= 200 && code < 300) {
     body = http.getString();
   } else {
     Serial.print("HTTP error: ");
